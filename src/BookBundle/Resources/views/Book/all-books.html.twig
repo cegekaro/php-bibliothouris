@@ -14,14 +14,17 @@
         </thead>
 
         <tbody>
-        {% for index in 1..10 %}
+        {% for book in books %}
             {% include '@Book/Book/_book-row.html.twig' with {
-            "isbn": "000.000.001",
-            "title": "Book Title",
-            "firstName": "Daniela",
-            "lastName": "Cruceanu"
+            "isbn": book.isbn,
+            "title": book.title,
+            "firstName": book.authorFirstName,
+            "lastName": book.authorLastName
             } %}
         {% endfor %}
         </tbody>
     </table>
+
+    {% set nextPage = app.request.get('page') + 1 %}
+    <a href="{{ path('bibl.book.book.all', {"page": nextPage}) }}">Page {{ nextPage }}</a>
 {% endblock %}

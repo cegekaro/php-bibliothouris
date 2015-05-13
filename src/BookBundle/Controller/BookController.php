@@ -17,11 +17,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BookController extends Controller
 {
     /**
-     * @Route("/all", name="bibl.book.book.all")
+     * @Route("/all/page/{page}", name="bibl.book.book.all")
      * @Method({"GET"})
      */
     public function listAllBooksAction($page = 1)
     {
-        return $this->render('@Book/Book/all-books.html.twig');
+        $limit = $page * 5;
+        $offset = ($page-1) * 5;
+
+        $books = $this->get('bibl.book.service.book')->retrieveAllBooks($limit, $offset);
+
+        return $this->render('@Book/Book/all-books.html.twig', [
+            'books' => $books
+        ]);
     }
 }

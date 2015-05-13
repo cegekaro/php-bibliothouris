@@ -1,4 +1,8 @@
 services:
-#    book.example:
-#        class: BookBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    bibl.book.service.abstract:
+        class: BookBundle\Service\AbstractService
+        arguments: [@doctrine.orm.entity_manager]
+
+    bibl.book.service.book:
+        class: BookBundle\Service\BookService
+        parent: bibl.book.service.abstract
