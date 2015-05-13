@@ -10,7 +10,7 @@ class BookService extends AbstractService
      * @param $limit
      * @param $offset
      *
-     * @return \Doctrine\ORM\PersistentCollection
+     * @return array
      */
     public function retrieveAllBooks($limit, $offset)
     {

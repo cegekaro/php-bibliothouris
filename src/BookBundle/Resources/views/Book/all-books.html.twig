@@ -26,5 +26,5 @@
     </table>
 
     {% set nextPage = app.request.get('page') + 1 %}
-    <a href="{{ path('bibl.book.book.all', {"page": nextPage}) }}">Page {{ nextPage }}</a>
+    <a id="next-page" href="{{ path('bibl.book.book.all', {"page": nextPage}) }}">Page {{ nextPage }}</a>
 {% endblock %}

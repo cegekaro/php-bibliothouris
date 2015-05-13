@@ -12,7 +12,7 @@ class BookRepository extends AbstractEntityRepository
      * @param $limit
      * @param $offset
      *
-     * @return PersistentCollection
+     * @return array
      */
     public function retrieveBooks($limit, $offset)
     {

@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BookController extends Controller
 {
     /**
-     * @Route("/all/page/{page}", name="bibl.book.book.all")
+     * @Route("/all/{page}", name="bibl.book.book.all")
      * @Method({"GET"})
      */
     public function listAllBooksAction($page = 1)
