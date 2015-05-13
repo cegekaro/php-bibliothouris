@@ -1,0 +1,38 @@
+.page-wrapper {
+    background-color: #667;
+}
+
+.sidebar {
+    background-color: #c9c9c9;
+}
+
+.header {
+    margin-bottom: 3em;
+}
+
+.sidebar {
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.sidebar-title {
+    border-bottom: 1px solid #fff;
+}
+
+.sidebar-links {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-links li {
+    list-style-type: none;
+}
+
+.content-wrapper {
+    background-color: #c9c9c9;
+    border: 1px solid #333;
+}
+
+.content-table {
+    background-color: #fff;
+}

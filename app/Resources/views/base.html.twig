@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Bibliothouris{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+{% block body %}
+    <div class="container-fluid page-wrapper">
+        {% block header %}
+            {% include '_header.html.twig' %}
+        {% endblock %}
+
+        <div class="container container-wrapper">
+            <div class="row">
+                {% block sidebar %}
+                    <div class="col-md-4 sidebar">
+                        <h3 class="sidebar-title">Quick links</h3>
+
+                        <ul class="sidebar-links">
+                            <li><a href="#">New book</a></li>
+                            <li><a href="#">Show all books</a></li>
+                        </ul>
+                    </div>
+                {% endblock %}
+
+                <div class="col-md-8 content-wrapper">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+{% endblock %}
+</body>
 </html>

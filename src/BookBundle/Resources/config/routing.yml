@@ -1,0 +1,4 @@
+bibl.book.book:
+    resource: @BookBundle/Controller/BookController.php
+    prefix: /book/
+    type: annotation
