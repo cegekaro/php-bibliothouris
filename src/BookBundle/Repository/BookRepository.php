@@ -26,4 +26,23 @@ class BookRepository extends AbstractEntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @return array
+     */
+    public function getNumberOfBooks() {
+        $query = $this->getEntityManager()->createQuery("
+            SELECT COUNT(b)
+            FROM BookBundle\Entity\Book b
+        ");
+
+        return $query->getSingleScalarResult();
+    }
+
+    public function saveBook($book) {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+    }
 }

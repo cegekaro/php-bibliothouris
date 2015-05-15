@@ -25,6 +25,31 @@
         </tbody>
     </table>
 
-    {% set nextPage = app.request.get('page') + 1 %}
-    <a id="next-page" href="{{ path('bibl.book.book.all', {"page": nextPage}) }}">Page {{ nextPage }}</a>
+    {% set lastPage = (numberOfBooks//5) %}
+
+    {# {% include '@Book/Book/_hideOrShowSignsForNextAndPrev.html.twig' %} #}
+
+    {# Hide the "<<" sign when we are on the first page #}
+    {% if app.request.get('page') == 1 %}
+        {% set displayPrev = "hideItem" %}
+    {% else %}
+        {% set displayPrev = "showItem" %}
+    {% endif %}
+
+
+    {# Hide the ">>" sign when we are on the last page #}
+    {% if app.request.get('page') == lastPage %}
+        {% set displayNext = "hideItem" %}
+    {% else %}
+        {% set displayNext = "showItem" %}
+    {% endif %}
+
+    {% set nextPage, currentPage, prevPage = app.request.get('page') + 1, app.request.get('page'), app.request.get('page') - 1 %}
+
+    <a id="prev-page" href="{{ path('bibl.book.book.all', {"page": prevPage}) }}" class="{{ displayPrev }}"> << </a>
+    <span>
+        {{ currentPage }}
+    </span>
+    <a id="next-page" href="{{ path('bibl.book.book.all', {"page": nextPage}) }}" class="{{ displayNext }}"> >> </a>
+
 {% endblock %}

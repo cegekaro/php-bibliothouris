@@ -1,0 +1,59 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    <h2>Add a new book</h2>
+
+    {#<form action="" method="post">
+       <div class="wrap-properties">
+           <label for="title" > Titlu: </label>
+           <input type="text" name="title" />
+       </div>
+
+        <div class="wrap-properties">
+            <label for="authorLastName"> Nume: </label>
+            <input type="text" name="authorLastName" />
+        </div>
+
+        <div class="wrap-properties">
+            <label for="authorFirstName"> Prenume: </label>
+            <input type="text" name="authorFirstName" />
+        </div>
+
+        <div class="wrap-properties">
+            <label for="isbn"> ISBN: </label>
+            <input type="text" name="isbn" />
+        </div>
+    </form>#}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="wrap-properties">
+        {{ form_label(form.title, 'Title', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_errors(form.title) }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div class="wrap-properties">
+        {{ form_label(form.authorLastName, 'Prenume autor:', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_errors(form.authorLastName) }}
+        {{ form_widget(form.authorLastName) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.authorFirstName, 'Nume autor:', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_errors(form.authorFirstName) }}
+        {{ form_widget(form.authorFirstName) }}
+    </div>
+    <div class="wrap-properties">
+        {{ form_label(form.isbn, 'Isbn:', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_errors(form.isbn) }}
+        {{ form_widget(form.isbn) }}
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

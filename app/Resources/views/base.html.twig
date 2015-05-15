@@ -23,13 +23,13 @@
                         <h3 class="sidebar-title">Quick links</h3>
 
                         <ul class="sidebar-links">
-                            <li><a href="#">New book</a></li>
+                            <li><a href="{{ path('bibl.book.book.add') }}">New book</a></li>
                             <li><a href="{{ path('bibl.book.book.all', {"page": 1}) }}">Show all books</a></li>
                         </ul>
                     </div>
                 {% endblock %}
 
-                <div class="col-md-8 content-wrapper">
+                <div class="col-md-6 content-wrapper col-md-offset-1">
                     {% block content %}
                     {% endblock %}
                 </div>
