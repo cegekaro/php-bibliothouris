@@ -52,9 +52,12 @@ class BookController extends Controller
             $form->submit($request->request->get($form->getName()));
 
             if ($form->isValid()) {
-                // add a flash message
-                $this->get('bibl.book.service.book')->saveBook($book);
-                $this->addFlash('notice', 'Cartea a fost salvata cu succes!');
+                $successInsert = $this->get('bibl.book.service.book')->saveBook($book);
+                if ($successInsert) {
+                    $this->addFlash('notice', 'Book was successfully saved!');
+                } else {
+                    $this->addFlash('notice', 'The server encoutered a problem.');
+                }
 
                 return $this->redirectToRoute('bibl.book.book.add');
             }

@@ -38,17 +38,19 @@
         {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
     </div>
+
     <div class="wrap-properties">
-        {{ form_label(form.authorLastName, 'Prenume autor:', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_label(form.authorFirstName, 'First name: ', { 'label_attr': {'class': 'col-md-3'} }) }}
+        {{ form_errors(form.authorFirstName) }}
+        {{ form_widget(form.authorFirstName) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.authorLastName, 'Last Name: ', { 'label_attr': {'class': 'col-md-3'} }) }}
         {{ form_errors(form.authorLastName) }}
         {{ form_widget(form.authorLastName) }}
     </div>
 
-    <div class="wrap-properties">
-        {{ form_label(form.authorFirstName, 'Nume autor:', { 'label_attr': {'class': 'col-md-3'} }) }}
-        {{ form_errors(form.authorFirstName) }}
-        {{ form_widget(form.authorFirstName) }}
-    </div>
     <div class="wrap-properties">
         {{ form_label(form.isbn, 'Isbn:', { 'label_attr': {'class': 'col-md-3'} }) }}
         {{ form_errors(form.isbn) }}
