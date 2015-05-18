@@ -53,4 +53,12 @@ class BookRepository extends AbstractEntityRepository
         return true;
 
     }
+
+    public function getBookById($id)
+    {
+        $book = $this->getEntityManager()->find('BookBundle:Book', $id);
+
+        return $book;
+
+    }
 }

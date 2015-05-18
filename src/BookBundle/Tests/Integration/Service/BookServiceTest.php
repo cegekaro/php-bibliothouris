@@ -36,4 +36,35 @@ class BookServiceTest extends AbstractIntegrationTest
             $this->assertNotNull($result->getId());
         }
     }
+
+    public function testGetBookByIsbn() {
+
+    }
+
+    /**
+     * @depends testGetBookByIsbn
+     */
+    public function testAddNewBook() {
+        $book = new Book();
+        $book->setIsbn("000.001");
+        $book->setAuthorFirstName("Mihail");
+        $book->setAuthorLastName("Drumes");
+
+        $this->bookService->saveBook($book);
+
+
+    }
+
+    public function testGetBookById() {
+        $id = 2;
+        /* @var Book $secondBook */
+        $secondBook = $this->bookService->getBookById($id);
+
+        $this->assertInstanceOf('\BookBundle\Entity\Book', $secondBook);
+        $this->assertNotNull($secondBook->getIsbn());
+        $this->assertNotNull($secondBook->getAuthorFirstName());
+        $this->assertNotNull($secondBook->getAuthorLastName());
+
+    }
+
 }

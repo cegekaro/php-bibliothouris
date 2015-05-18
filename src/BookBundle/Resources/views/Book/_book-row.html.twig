@@ -3,4 +3,6 @@
     <td>{{ title }}</td>
     <td>{{ firstName }}</td>
     <td>{{ lastName }}</td>
+    <td><a href=" {{ path('bibl.book.book.edit', { "id": id }) }}"> Edit </a></td>
+    <td><a href="{{ path('bibl.book.book.view', {"id": id}) }}"> View</a></td>
 </tr>

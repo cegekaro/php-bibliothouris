@@ -56,7 +56,7 @@ class BookController extends Controller
                 if ($successInsert) {
                     $this->addFlash('notice', 'Book was successfully saved!');
                 } else {
-                    $this->addFlash('notice', 'The server encoutered a problem.');
+                    $this->addFlash('notice', 'The server encountered a problem.');
                 }
 
                 return $this->redirectToRoute('bibl.book.book.add');
@@ -64,7 +64,55 @@ class BookController extends Controller
         }
 
         return $this->render('@Book/Book/add-book.html.twig', [
-            'form' => $form->createView()
+            'form'    => $form->createView(),
+            'newBook' => true
         ]);
     }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/edit/{id}", name = "bibl.book.book.edit")
+     * @return mixed
+     */
+    public function editBookByIdAction(Request $request)
+    {
+        $book = $this->get('bibl.book.service.book')->getBookById($request->get('id'));
+        $form = $this->createForm(new BookTask(), $book);
+
+        if ($request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
+
+            if ($form->isValid()) {
+                $successUpdate = $this->get("bibl.book.service.book")->saveBook($book);
+                if ($successUpdate) {
+                    $this->addFlash('notice', "The book was successfully updated! ");
+                } else {
+                    $this->addFlash('notice', "The server encountered a problem.");
+                }
+            }
+        }
+
+        return $this->render('@Book/Book/add-book.html.twig', [
+            'form'    => $form->createView(),
+            'book'    => $book,
+            'newBook' => false
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/view/{id}", name = "bibl.book.book.view")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewBookByIdAction(Request $request)
+    {
+        $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
+
+        return $this->render('@Book/Book/view-book.html.twig', [
+            'book' => $currentBook
+        ]);
+    }
+
 }

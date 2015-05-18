@@ -17,12 +17,20 @@ class BookService extends AbstractService
         return $this->getObjectManager()->getRepository('BookBundle:Book')->retrieveBooks($limit, $offset);
     }
 
-    public function retrieveNumberOfBooks() {
+    public function retrieveNumberOfBooks()
+    {
         return $this->getObjectManager()->getRepository('BookBundle:Book')->getNumberOfBooks();
     }
 
-    public function saveBook($book) {
+    public function saveBook($book)
+    {
         return $this->getObjectManager()->getRepository('BookBundle:Book')->saveBook($book);
     }
+
+    public function getBookById($id)
+    {
+        return $this->getObjectManager()->getRepository('BookBundle:Book')->getBookById($id);
+    }
+
 
 }

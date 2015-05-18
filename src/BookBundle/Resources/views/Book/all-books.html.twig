@@ -14,14 +14,15 @@
         </thead>
 
         <tbody>
-        {% for book in books %}
-            {% include '@Book/Book/_book-row.html.twig' with {
-            "isbn": book.isbn,
-            "title": book.title,
-            "firstName": book.authorFirstName,
-            "lastName": book.authorLastName
-            } %}
-        {% endfor %}
+            {% for book in books %}
+                {% include '@Book/Book/_book-row.html.twig' with {
+                "isbn": book.isbn,
+                "title": book.title,
+                "firstName": book.authorFirstName,
+                "lastName": book.authorLastName,
+                "id": book.id
+                } %}
+            {% endfor %}
         </tbody>
     </table>
 

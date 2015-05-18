@@ -7,29 +7,12 @@
         </div>
     {% endfor %}
 
-    <h2>Add a new book</h2>
+    {% if newBook == true %}
+        <h2>Add a new book</h2>
 
-    {#<form action="" method="post">
-       <div class="wrap-properties">
-           <label for="title" > Titlu: </label>
-           <input type="text" name="title" />
-       </div>
-
-        <div class="wrap-properties">
-            <label for="authorLastName"> Nume: </label>
-            <input type="text" name="authorLastName" />
-        </div>
-
-        <div class="wrap-properties">
-            <label for="authorFirstName"> Prenume: </label>
-            <input type="text" name="authorFirstName" />
-        </div>
-
-        <div class="wrap-properties">
-            <label for="isbn"> ISBN: </label>
-            <input type="text" name="isbn" />
-        </div>
-    </form>#}
+    {% else %}
+        <h2> Edit book </h2>
+    {% endif %}
 
     {{ form_start(form) }}
     {{ form_errors(form) }}

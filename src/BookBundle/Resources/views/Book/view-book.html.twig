@@ -1,0 +1,29 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div>
+        <h2> View book </h2>
+        <table>
+            <tr>
+                <td> Title:</td>
+                <td> {{ book.title }}</td>
+            </tr>
+
+            <tr>
+                <td> First name:</td>
+                <td> {{ book.authorFirstName }}</td>
+            </tr>
+
+            <tr>
+                <td> Last name:</td>
+                <td> {{ book.authorLastName }}</td>
+            </tr>
+
+            <tr>
+                <td> Isbn:</td>
+                <td> {{ book.isbn }}</td>
+            </tr>
+        </table>
+
+    </div>
+{% endblock %}

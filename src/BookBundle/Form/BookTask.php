@@ -16,7 +16,7 @@ class BookTask extends AbstractType
             ->add('authorLastName', 'text')
             ->add('authorFirstName', 'text')
             ->add('isbn', 'text')
-            ->add('save', 'submit', array('label' => 'Adauga carte'));
+            ->add('save', 'submit', array('label' => 'Save'));
     }
 
     public function getName()
