@@ -37,6 +37,15 @@ class BookServiceTest extends AbstractIntegrationTest
         }
     }
 
+    public function testRetrieveNumberOfBooks() {
+        $numberOfBooks = $this->bookService->retrieveNumberOfBooks();
+
+        $this->assertInternalType('string', $numberOfBooks);
+    }
+
+    /*
+     * @depends testAddNewBook
+     */
     public function testGetBookByIsbn() {
 
     }
@@ -66,5 +75,6 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertNotNull($secondBook->getAuthorLastName());
 
     }
+
 
 }
