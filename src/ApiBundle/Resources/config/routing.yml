@@ -1,0 +1,4 @@
+bibl.book.api:
+    resource: @ApiBundle/Controller/ApiController.php
+    prefix: /api/
+    type: annotation

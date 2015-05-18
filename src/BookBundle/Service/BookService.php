@@ -32,5 +32,4 @@ class BookService extends AbstractService
         return $this->getObjectManager()->getRepository('BookBundle:Book')->getBookById($id);
     }
 
-
 }

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Governs the methods exposed regarding books.
@@ -78,6 +79,11 @@ class BookController extends Controller
     public function editBookByIdAction(Request $request)
     {
         $book = $this->get('bibl.book.service.book')->getBookById($request->get('id'));
+
+        if (null === $book) {
+            return $this->redirectToRoute("bibl.book.book.add");
+        }
+
         $form = $this->createForm(new BookTask(), $book);
 
         if ($request->isMethod('POST')) {
@@ -110,8 +116,25 @@ class BookController extends Controller
     {
         $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
 
+        if (null === $currentBook) {
+            return $this->redirectToRoute("bibl.book.book.add");
+        }
+
         return $this->render('@Book/Book/view-book.html.twig', [
             'book' => $currentBook
+        ]);
+    }
+
+    /**
+     *
+     * @Route("/searchByIsbn", name = "bibl.book.book.listSearchByIsbn")
+     * @return Response
+     */
+    public function searchBookByIsbn()
+    {
+
+        return $this->render('BookBundle:Book:search_by_isbn.html.twig', [
+            'books' => []
         ]);
     }
 

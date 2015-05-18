@@ -1,0 +1,4 @@
+services:
+    bibl.book.api.book:
+        class: ApiBundle\Service\ApiService
+        parent: bibl.book.service.abstract

@@ -3,7 +3,6 @@
 
 namespace BookBundle\Repository;
 
-
 use Doctrine\ORM\PersistentCollection;
 
 class BookRepository extends AbstractEntityRepository
@@ -60,5 +59,17 @@ class BookRepository extends AbstractEntityRepository
 
         return $book;
 
+    }
+
+    public function getBooksByIsbn($isbn)
+    {
+        $books = $this->getEntityManager()->createQuery("
+            SELECT b
+            FROM BookBundle\Entity\Book b
+            WHERE b.isbn LIKE :isbn"
+        )->setParameter("isbn", "%".$isbn."%");
+
+        return ($books->getSQL());
+        return $books;
     }
 }
