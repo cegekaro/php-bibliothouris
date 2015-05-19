@@ -41,16 +41,9 @@ class BookRepository extends AbstractEntityRepository
 
     public function saveBook($book)
     {
-        try {
-            $entityManager = $this->getEntityManager();
-            $entityManager->persist($book);
-            $entityManager->flush();
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
-
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($book);
+        $entityManager->flush();
     }
 
     public function getBookById($id)

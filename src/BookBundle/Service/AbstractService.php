@@ -4,6 +4,8 @@
 namespace BookBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Governs all services in the Book bundle.

@@ -13,8 +13,8 @@ class ApiController extends Controller
     /**
      * @param Request $request
      *
-     * @Route("/submitIsbn", name="bibl.book.api.searchByIsbn")
-     * @Method({"GET"})
+     * @Route("/submitIsbn", name="bibl.book.api.searchByIsbn",options={"expose"=true})
+     * @Method({"POST"})
      * @return Response
      */
     public function getBooksByIsbn(Request $request)

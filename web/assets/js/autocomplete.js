@@ -10,8 +10,8 @@ searchForIsbn.prototype.initAutocomplete = function () {
         minLength: 3,
         source: function sendRequest(request, response) {
             $.ajax({
-                url: "/app_dev.php/api/submitIsbn",
-                type: "GET",
+                url: Routing.generate('bibl.book.api.searchByIsbn'),
+                type: "POST",
                 dataType: "json",
                 data: {
                     "isbn": isbn

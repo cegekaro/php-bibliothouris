@@ -35,7 +35,7 @@
                     {% endblock %}
                 </div>
             </div>
-        </div>
+        </div>l
     </div>
 {% endblock %}
 
@@ -43,6 +43,8 @@
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 {% endblock %}
 </body>
 </html>

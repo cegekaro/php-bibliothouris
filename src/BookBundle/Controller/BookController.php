@@ -9,6 +9,7 @@ use BookBundle\Form\BookTask;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,14 +21,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BookController extends Controller
 {
+    const  NUMBER_OF_ITEMS_PER_PAGE = 5;
+
     /**
+     * @param int $page
+     *
      * @Route("/all/{page}", name="bibl.book.book.all")
      * @Method({"GET"})
+     * @return Response
      */
     public function listAllBooksAction($page = 1)
     {
-        $limit  = $page * 5;
-        $offset = ($page - 1) * 5;
+        $limit  = self::NUMBER_OF_ITEMS_PER_PAGE;
+        $offset = ($page - 1) * self::NUMBER_OF_ITEMS_PER_PAGE;
 
         $books         = $this->get('bibl.book.service.book')->retrieveAllBooks($limit, $offset);
         $numberOfBooks = $this->get('bibl.book.service.book')->retrieveNumberOfBooks();
@@ -53,10 +59,10 @@ class BookController extends Controller
             $form->submit($request->request->get($form->getName()));
 
             if ($form->isValid()) {
-                $successInsert = $this->get('bibl.book.service.book')->saveBook($book);
-                if ($successInsert) {
+                try {
+                    $this->get('bibl.book.service.book')->saveBook($book);
                     $this->addFlash('notice', 'Book was successfully saved!');
-                } else {
+                } catch (\PDOException $e) {
                     $this->addFlash('notice', 'The server encountered a problem.');
                 }
 
@@ -90,10 +96,11 @@ class BookController extends Controller
             $form->submit($request->request->get($form->getName()));
 
             if ($form->isValid()) {
-                $successUpdate = $this->get("bibl.book.service.book")->saveBook($book);
-                if ($successUpdate) {
+                try {
+                    $this->get("bibl.book.service.book")->saveBook($book);
                     $this->addFlash('notice', "The book was successfully updated! ");
-                } else {
+                }
+                catch(\PDOException $e) {
                     $this->addFlash('notice', "The server encountered a problem.");
                 }
             }
@@ -127,7 +134,7 @@ class BookController extends Controller
 
     /**
      *
-     * @Route("/searchByIsbn", name = "bibl.book.book.listSearchByIsbn")
+     * @Route("/search_by_isbn", name = "bibl.book.book.listSearchByIsbn")
      * @return Response
      */
     public function searchBookByIsbn()
