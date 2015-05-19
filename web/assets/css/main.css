@@ -88,3 +88,7 @@ ul.ui-autocomplete li {
 ul.ui-autocomplete li:hover {
     background-color: grey;
 }
+
+.all-books {
+    margin-top: 10px;
+}

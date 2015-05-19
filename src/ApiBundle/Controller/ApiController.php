@@ -8,12 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Governs the API's methods
+ *
+ * @package ApiBundle\Controller
+ * @author  Daniela Cruceanu
+ */
 class ApiController extends Controller
 {
     /**
      * @param Request $request
      *
-     * @Route("/submitIsbn", name="bibl.book.api.searchByIsbn",options={"expose"=true})
+     * @Route("/submitIsbn", name="bibl.book.api.search_by_isbn", options={"expose"=true})
      * @Method({"POST"})
      * @return Response
      */
@@ -23,6 +29,6 @@ class ApiController extends Controller
         $allMatchedBooks = $this->get('bibl.book.api.book')->getBooksByIsbn($isbn);
 
         return new Response(json_encode($allMatchedBooks));
-
     }
+
 }

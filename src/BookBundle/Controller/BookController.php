@@ -99,8 +99,7 @@ class BookController extends Controller
                 try {
                     $this->get("bibl.book.service.book")->saveBook($book);
                     $this->addFlash('notice', "The book was successfully updated! ");
-                }
-                catch(\PDOException $e) {
+                } catch (\PDOException $e) {
                     $this->addFlash('notice', "The server encountered a problem.");
                 }
             }
@@ -121,7 +120,10 @@ class BookController extends Controller
      */
     public function viewBookByIdAction(Request $request)
     {
-        $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
+        try {
+            $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
+        } catch (\ORMException $e) {
+        }
 
         if (null === $currentBook) {
             return $this->redirectToRoute("bibl.book.book.add");
@@ -134,12 +136,30 @@ class BookController extends Controller
 
     /**
      *
-     * @Route("/search_by_isbn", name = "bibl.book.book.listSearchByIsbn")
+     * @Route("/search_by_isbn", name = "bibl.book.book.list_search_by_isbn")
      * @return Response
      */
     public function searchBookByIsbn()
     {
-        return $this->render('BookBundle:Book:search_by_isbn.html.twig');
+        return $this->render('BookBundle:Book:search-by-isbn.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/render_books", name="bibl.book.book.ajax_render_books", options={"expose"=true})
+     * @Method({"POST"})
+     *
+     * @return Response
+     */
+    public function renderBooksAfterSubmit(Request $request)
+    {
+        $isbn  = $request->get('isbn');
+        $books = $this->get('bibl.book.api.book')->getBooksByIsbn($isbn);
+
+        return $this->render('@Book/Book/_ajax-all-books-by-isbn.html.twig', [
+            'books' => $books
+        ]);
     }
 
 }

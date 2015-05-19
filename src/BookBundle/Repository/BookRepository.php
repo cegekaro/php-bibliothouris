@@ -39,6 +39,9 @@ class BookRepository extends AbstractEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * @param $book
+     */
     public function saveBook($book)
     {
         $entityManager = $this->getEntityManager();
@@ -46,6 +49,14 @@ class BookRepository extends AbstractEntityRepository
         $entityManager->flush();
     }
 
+    /**
+     * @param $id
+     *
+     * @return \BookBundle\Entity\Book
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
     public function getBookById($id)
     {
         $book = $this->getEntityManager()->find('BookBundle:Book', $id);
@@ -54,6 +65,11 @@ class BookRepository extends AbstractEntityRepository
 
     }
 
+    /**
+     * @param $isbn
+     *
+     * @return array
+     */
     public function getBooksByIsbn($isbn)
     {
         $books = $this->createQueryBuilder("b")
