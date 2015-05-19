@@ -63,13 +63,10 @@ class BookRepository extends AbstractEntityRepository
 
     public function getBooksByIsbn($isbn)
     {
-        $books = $this->getEntityManager()->createQuery("
-            SELECT b
-            FROM BookBundle\Entity\Book b
-            WHERE b.isbn LIKE :isbn"
-        )->setParameter("isbn", "%".$isbn."%");
+        $books = $this->createQueryBuilder("b")
+            ->where("b.isbn LIKE :isbn")
+            ->setParameter(":isbn", "%{$isbn}%")->getQuery()->getArrayResult();
 
-        return ($books->getSQL());
         return $books;
     }
 }

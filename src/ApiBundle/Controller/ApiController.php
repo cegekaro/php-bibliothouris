@@ -17,7 +17,8 @@ class ApiController extends Controller
      * @Method({"GET"})
      * @return Response
      */
-    public function getBooksByIsbn(Request $request) {
+    public function getBooksByIsbn(Request $request)
+    {
         $isbn            = $request->get('isbn');
         $allMatchedBooks = $this->get('bibl.book.api.book')->getBooksByIsbn($isbn);
 
