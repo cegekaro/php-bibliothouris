@@ -1,12 +1,13 @@
 {% extends('::base.html.twig') %}
 
 {% block content %}
-    <div>
-        <input type="text" id="searchButton"/>
+    <div class="wrap-search">
+        <label for="searchButton"> Search by Isbn: </label>
+        <input type="text" id="searchButton" name="searchByIsbn"/>
     </div>
 
-    {%  if books|length != 0 %}
-        <table>
+    {#{%  if books|length != 0 %}#}
+        {#<table>
             <thead>
             <th> ISBN</th>
             <th> Title</th>
@@ -15,7 +16,7 @@
             </thead>
 
             <tbody>
-            {% for book in books %}
+            &#123;&#35;{% for book in books %}
                 {% include('@Book/Book/_book-row.html.twig') with {
                 "isbn": book.isbn,
                 "title": book.title,
@@ -23,10 +24,10 @@
                 "lastName": book.authorLastName,
                 "id": book.id
                 } %}
-            {% endfor %}
+            {% endfor %}&#35;&#125;
             </tbody>
-        </table>
-    {% endif %}
+        </table>#}
+    {#{% endif %}#}
 
 {% endblock %}
 

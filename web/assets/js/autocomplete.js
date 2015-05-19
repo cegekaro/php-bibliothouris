@@ -20,8 +20,8 @@ searchForIsbn.prototype.initAutocomplete = function () {
                     response(
                         $.map(data, function (item) {
                             return {
-                                "label": item["title"],
-                                "value": item["title"]
+                                "label": item["isbn"] + ": "+ item["title"],
+                                "value": item["isbn"]
                             }
                         })
                     )
@@ -30,7 +30,6 @@ searchForIsbn.prototype.initAutocomplete = function () {
         },
         select: function (event, ui) {
             $("#" + this.elementId).val(ui.item.label);
-            return false;
         }
     })
 }

@@ -132,10 +132,7 @@ class BookController extends Controller
      */
     public function searchBookByIsbn()
     {
-
-        return $this->render('BookBundle:Book:search_by_isbn.html.twig', [
-            'books' => []
-        ]);
+        return $this->render('BookBundle:Book:search_by_isbn.html.twig');
     }
 
 }
