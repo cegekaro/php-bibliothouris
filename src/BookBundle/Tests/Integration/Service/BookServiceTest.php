@@ -6,6 +6,7 @@ namespace BookBundle\Tests\Integration\Service;
 
 use BookBundle\Entity\Book;
 use BookBundle\Service\BookService;
+use ApiBundle\Service\ApiService;
 use BookBundle\Tests\Integration\AbstractIntegrationTest;
 
 class BookServiceTest extends AbstractIntegrationTest
@@ -15,11 +16,17 @@ class BookServiceTest extends AbstractIntegrationTest
      */
     protected $bookService;
 
+    /**
+     * @var ApiService
+     */
+    protected $apiService;
+
     public function setUp()
     {
         parent::setUp();
 
         $this->bookService = $this->getContainer()->get('bibl.book.service.book');
+        $this->apiService = $this->getContainer()->get('bibl.book.api.book');
     }
 
     public function testRetrieveAllBooks()
@@ -43,25 +50,28 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertInternalType('string', $numberOfBooks);
     }
 
-    /*
-     * @depends testAddNewBook
-     */
-    public function testGetBookByIsbn() {
 
+    public function testAddNewBook() {
+        $book = new Book();
+        $book->setIsbn("000.000.123");
+        $book->setAuthorFirstName("Mihail");
+        $book->setAuthorLastName("Drumes");
+        $book->setTitle("Invitatie la vals");
+        $this->bookService->saveBook($book);
+
+        $this->assertNotNull($book->getId(), "The book's id is null");
     }
 
     /**
-     * @depends testGetBookByIsbn
+     * @depends testAddNewBook
      */
-    public function testAddNewBook() {
-        $book = new Book();
-        $book->setIsbn("000.001");
-        $book->setAuthorFirstName("Mihail");
-        $book->setAuthorLastName("Drumes");
+    public function tesGetBookByIsbn() {
+        $addedBooks = $this->apiService->getBooksByIsbn("000.000.123");
 
-        $this->bookService->saveBook($book);
-
-
+        $this->assertInternalType('array', $addedBooks);
+        $this->assertEquals(1, count($addedBooks));
+        $this->assertEquals("Mihail", $addedBooks[0]['authorFirstName']);
+        $this->assertEquals("Drumes", $addedBooks[0]['authorLastName']);
     }
 
     public function testGetBookById() {
@@ -73,8 +83,6 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertNotNull($secondBook->getIsbn());
         $this->assertNotNull($secondBook->getAuthorFirstName());
         $this->assertNotNull($secondBook->getAuthorLastName());
-
     }
-
 
 }

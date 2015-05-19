@@ -10,7 +10,7 @@ class ApiService extends AbstractService {
     /**
      * @param $isbn
      *
-     * @return Book[]
+     * @return Array[]
      */
     public function getBooksByIsbn($isbn) {
         return $this->getObjectManager()->getRepository('BookBundle:Book')->getBooksByIsbn($isbn);

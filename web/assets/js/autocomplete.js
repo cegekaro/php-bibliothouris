@@ -10,11 +10,13 @@ searchForIsbn.prototype.getInsertedIsbn = function () {
 }
 
 searchForIsbn.prototype.initAutocomplete = function () {
-    var isbn = this.getInsertedIsbn();
+    var self = this;
 
     $("#" + this.elementId).autocomplete({
         minLength: 3,
         source: function sendRequest(request, response) {
+            var isbn = self.getInsertedIsbn();
+
             $.ajax({
                 url: Routing.generate('bibl.book.api.search_by_isbn'),
                 type: "POST",
