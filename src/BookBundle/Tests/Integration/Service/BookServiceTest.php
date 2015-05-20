@@ -66,4 +66,19 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertNotNull($secondBook->getAuthorLastName());
     }
 
+    public function filterBookByFields() {
+
+        $field = "isbn";
+        $value = "000.000.002";
+        $order = "asc";
+        $books = $this->bookService->getfilterBookByFields($field, $value, $order);
+
+        $this->assertInternalType("array", $books);
+        $this->assertEquals(1, count($books));
+        $this->assertEquals("Author FName 2", $books[0]['authorFirstName']);
+        $this->assertEquals("Author LName 2", $books[0]['authorLastName']);
+        $this->assertEquals("Title 2", $books[0]['title']);
+        $this->assertNotNull($books[0]['id']);
+
+    }
 }

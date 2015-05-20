@@ -82,10 +82,8 @@ class BookRepository extends AbstractEntityRepository
     }
     
     public function filterBookByFields($field, $value, $order) {
-        $condition = "b.{$field} LIKE :{$field}";
-        
         $books = $this->createQueryBuilder("b")
-                    ->where($condition)
+                    ->where("b.{$field} LIKE :{$field}")
                     ->orderBy("b.{$field}", $order)
                     ->setParameter(":{$field}", "%{$value}%")
                     ->getQuery()
