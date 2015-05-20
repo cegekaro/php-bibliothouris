@@ -6,7 +6,6 @@ namespace BookBundle\Tests\Integration\Service;
 
 use BookBundle\Entity\Book;
 use BookBundle\Service\BookService;
-use ApiBundle\Service\ApiService;
 use BookBundle\Tests\Integration\AbstractIntegrationTest;
 
 class BookServiceTest extends AbstractIntegrationTest
@@ -16,17 +15,11 @@ class BookServiceTest extends AbstractIntegrationTest
      */
     protected $bookService;
 
-    /**
-     * @var ApiService
-     */
-    protected $apiService;
-
     public function setUp()
     {
         parent::setUp();
 
         $this->bookService = $this->getContainer()->get('bibl.book.service.book');
-        $this->apiService = $this->getContainer()->get('bibl.book.api.book');
     }
 
     public function testRetrieveAllBooks()
@@ -60,18 +53,6 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->bookService->saveBook($book);
 
         $this->assertNotNull($book->getId(), "The book's id is null");
-    }
-
-    /**
-     * @depends testAddNewBook
-     */
-    public function tesGetBookByIsbn() {
-        $addedBooks = $this->apiService->getBooksByIsbn("000.000.123");
-
-        $this->assertInternalType('array', $addedBooks);
-        $this->assertEquals(1, count($addedBooks));
-        $this->assertEquals("Mihail", $addedBooks[0]['authorFirstName']);
-        $this->assertEquals("Drumes", $addedBooks[0]['authorLastName']);
     }
 
     public function testGetBookById() {

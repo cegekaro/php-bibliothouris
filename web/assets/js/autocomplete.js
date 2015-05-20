@@ -24,7 +24,7 @@ searchForInfo.prototype.initAutocomplete = function () {
             valueOfField[self.getSearchField()] = self.getInsertedInfo();
 
             $.ajax({
-                url: Routing.generate('bibl.book.api.search_by_isbn'),
+                url: Routing.generate('bibl.book.api.search_by_info'),
                 type: "POST",
                 dataType: "json",
                 data: valueOfField,
