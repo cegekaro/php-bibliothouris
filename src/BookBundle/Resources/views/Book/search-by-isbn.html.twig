@@ -2,10 +2,11 @@
 
 {% block content %}
     <div class="wrap-search">
-        <label for="searchButton"> Search by Isbn: </label>
-        <input type="text" id="searchButton" name="searchByIsbn"/>
-        <input type="button" id="submitButton" value="List books"/>
-
+        {%  block search %}
+            <label for="searchIsbnInput"> Search by Isbn: </label>
+            <input type="text" id="searchIsbnInput" name="searchByIsbn"/>
+            <input type="button" id="submitIsbnButton" value="List books"/>
+        {%  endblock %}
     </div>
 
     <table class="table table-bordered table-responsive content-table all-books"> </table>

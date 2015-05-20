@@ -59,15 +59,6 @@ class BookControllerTest extends AbstractFunctionalTest
         $this->assertSuccessfulResponse('Could not access the view page of the second book');
     }
 
-    public function testGetBooksByIsbn()
-    {
-        $this->getClient()->request('POST', '/api/submit_isbn', [
-            "isbn" => "000.000.001"
-        ]);
-
-        $this->assertSuccessfulResponse('Could not access the api method for submit isbn');
-    }
-
     public function testListBooksByIsbn()
     {
         $this->getClient()->request('POST', '/book/render_books', [
