@@ -46,7 +46,7 @@ class BookServiceTest extends AbstractIntegrationTest
 
     public function testAddNewBook() {
         $book = new Book();
-        $book->setIsbn("000.000.123");
+        $book->setIsbn("0-201-53000-0");
         $book->setAuthorFirstName("Mihail");
         $book->setAuthorLastName("Drumes");
         $book->setTitle("Invitatie la vals");
@@ -66,10 +66,10 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertNotNull($secondBook->getAuthorLastName());
     }
 
-    public function filterBookByFields() {
+    public function testFilterBookByFields() {
 
         $field = "isbn";
-        $value = "000.000.002";
+        $value = "000-000-0002";
         $order = "asc";
         $books = $this->bookService->getfilterBookByFields($field, $value, $order);
 
@@ -80,5 +80,16 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertEquals("Title 2", $books[0]['title']);
         $this->assertNotNull($books[0]['id']);
 
+    }
+
+    public function testValidIsbn() {
+        $book = new Book();
+        $book->setIsbn("123");
+        $book->setAuthorFirstName("Agatha");
+        $book->setAuthorLastName("Christie");
+        $book->setTitle("Cat among the pigeons");
+        $this->bookService->saveBook($book);
+
+        //$this->assertEquals(null, $book->getId());
     }
 }

@@ -4,19 +4,24 @@ namespace BookBundle\Validator\Constraints;
 
 
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+
 /**
- * Contains the validation for the isbn
+ * Governs the custom validation methods for ISBN
  *
- * @package BookBundle\Service
+ * @package BookBundle\Validator\Constraints
  * @author  Daniela Cruceanu
- * @Annotation
+ *
  */
-class ValidIsbnValidator extends Constraint
+class ValidIsbnValidator extends ConstraintValidator
 {
+
+    const NUMBER_OF_DIGITS = 10;
+    const MULTIPLE_NUMBER = 11;
 
     public function validate($value, Constraint $constraint)
     {
-        if (!preg_match('/^[0-9]+$/', $value, $matches) || !($this->isValidIsbn10($value))) {
+        if (!preg_match('/^[0-9-]+$/', $value, $matches) || !($this->isValidIsbn10($value))) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%string%', $value)->addViolation();
         }
@@ -24,14 +29,16 @@ class ValidIsbnValidator extends Constraint
 
     public function isValidIsbn10($value)
     {
-        $sum = 0;
-        for ($i = 0; $i < $value . length(); $i++) {
-            if (is_int($value[$i])) {
-                $sum = $sum + $i;
+        $sum        = 0;
+        $nrOfDigits = 0;
+        for ($i = 0; $i < strlen($value); $i++) {
+            if (is_numeric($value[$i])) {
+                $sum = $sum + $value[$i];
+                $nrOfDigits++;
             }
         }
 
-        if ($sum % 11 != 0) {
+        if (($sum % self::MULTIPLE_NUMBER) != 0 || ($nrOfDigits != self::NUMBER_OF_DIGITS)) {
             return false;
         }
 

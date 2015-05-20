@@ -4,6 +4,7 @@
 namespace BookBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use BookBundle\Validator\Constraints as CustomConstraint;
 
 /**
  * The basic book that is available in the library.
@@ -21,6 +22,7 @@ class Book extends AbstractEntity
      * @var string
      *
      * @ORM\Column(name="isbn", type="string", length=160)
+     * @CustomConstraint\ValidIsbn
      */
     protected $isbn;
 

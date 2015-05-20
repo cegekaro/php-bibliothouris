@@ -21,7 +21,7 @@ class LoadBooks implements FixtureInterface
             $book = new Book();
 
             $book
-                ->setIsbn("000.000.00{$index}")
+                ->setIsbn("000-000-000{$index}")
                 ->setTitle("Title {$index}")
                 ->setAuthorFirstName("Author FName {$index}")
                 ->setAuthorLastName("Author LName {$index}");

@@ -23,11 +23,11 @@ class ApiServiceTest extends AbstractIntegrationTest
     }
 
     public function testGetBookByIsbn() {
-        $books = $this->apiService->getBooksByInfo("isbn", "000.000.001");
+        $books = $this->apiService->getBooksByInfo("isbn", "000-000-0001");
         $notFoundBooks = $this->apiService->getBooksByInfo("isbn", "\0");
 
         $this->assertInternalType('array', $books);
-        $this->assertEquals(1, count($books));
+        $this->assertEquals(1, count($books), "The number of books need to be 1");
         $this->assertNotNull($books[0]['id']);
         $this->assertEquals("Author FName 1", $books[0]['authorFirstName']);
         $this->assertEquals("Author LName 1", $books[0]['authorLastName']);

@@ -28,7 +28,7 @@ class BookControllerTest extends AbstractFunctionalTest
 
         $form = $crawler->selectButton('Save')->form();
         $form->setValues(array(
-            'book[isbn]'            => '123443',
+            'book[isbn]'            => '0-201-53082-1',
             'book[authorFirstName]' => "Ana",
             'book[authorLastName]'  => "Ana",
             'book[title]'           => "Ana are mere 222",
@@ -46,7 +46,7 @@ class BookControllerTest extends AbstractFunctionalTest
 
         $form = $crawler->selectButton('Save')->form();
         $form->setValues(array(
-            'book[isbn]' => 'newIsbn'
+            'book[isbn]' => '0-201-53082-1'
         ));
 
         $afterSubmitCrawler = $this->getClient()->submit($form);
@@ -92,4 +92,6 @@ class BookControllerTest extends AbstractFunctionalTest
         //$this->assertTrue($this->getClient()->getResponse()->isServerError(), 'Sql Injection worked');
 
     }
+
+
 }
