@@ -154,12 +154,26 @@ class BookController extends Controller
      */
     public function renderBooksAfterSubmit(Request $request)
     {
-        $isbn  = $request->get('isbn');
-        $books = $this->get('bibl.book.api.book')->getBooksByIsbn($isbn);
+        if ($request->get('isbn')) {
+            $field = "isbn";
+            $info  = $request->get('isbn');
+        } else if ($request->get('title')) {
+            $field = "title";
+            $info  = $request->get('title');
+        }
+
+        $books = $this->get('bibl.book.api.book')->getBooksByInfo($field, $info);
 
         return $this->render('@Book/Book/_ajax-all-books-by-isbn.html.twig', [
             'books' => $books
         ]);
     }
 
+    /**
+     * @Route("/search_by_title", name = "bibl.book.book.list_search_by_title")
+     * @return Response
+     */
+    public function searchBookByTitle() {
+        return $this->render('@Book/Book/search_by_title.html.twig');
+    }
 }

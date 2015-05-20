@@ -66,15 +66,17 @@ class BookRepository extends AbstractEntityRepository
     }
 
     /**
-     * @param $isbn
+     * @param $field
+     * @param $info
      *
      * @return array
      */
-    public function getBooksByIsbn($isbn)
+    public function getBooksByInfo($field, $info)
     {
+        $condition = "b.{$field} LIKE :{$field}";
         $books = $this->createQueryBuilder("b")
-            ->where("b.isbn LIKE :isbn")
-            ->setParameter(":isbn", "%{$isbn}%")->getQuery()->getArrayResult();
+            ->where($condition)
+            ->setParameter(":{$field}", "%{$info}%")->getQuery()->getArrayResult();
 
         return $books;
     }

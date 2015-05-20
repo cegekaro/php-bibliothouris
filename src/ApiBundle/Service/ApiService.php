@@ -8,11 +8,12 @@ use BookBundle\Service\AbstractService;
 class ApiService extends AbstractService {
 
     /**
-     * @param $isbn
+     * @param $field
+     * @param $info
      *
-     * @return Array[]
+     * @return array
      */
-    public function getBooksByIsbn($isbn) {
-        return $this->getObjectManager()->getRepository('BookBundle:Book')->getBooksByIsbn($isbn);
+    public function getBooksByInfo($field, $info) {
+        return $this->getObjectManager()->getRepository('BookBundle:Book')->getBooksByInfo($field, $info);
     }
 }
