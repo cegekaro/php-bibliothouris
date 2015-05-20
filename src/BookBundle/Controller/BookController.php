@@ -9,7 +9,9 @@ use BookBundle\Form\BookTask;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Governs the methods exposed regarding books.
@@ -19,14 +21,19 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BookController extends Controller
 {
+    const  NUMBER_OF_ITEMS_PER_PAGE = 5;
+
     /**
+     * @param int $page
+     *
      * @Route("/all/{page}", name="bibl.book.book.all")
      * @Method({"GET"})
+     * @return Response
      */
     public function listAllBooksAction($page = 1)
     {
-        $limit  = $page * 5;
-        $offset = ($page - 1) * 5;
+        $limit  = self::NUMBER_OF_ITEMS_PER_PAGE;
+        $offset = ($page - 1) * self::NUMBER_OF_ITEMS_PER_PAGE;
 
         $books         = $this->get('bibl.book.service.book')->retrieveAllBooks($limit, $offset);
         $numberOfBooks = $this->get('bibl.book.service.book')->retrieveNumberOfBooks();
@@ -52,10 +59,10 @@ class BookController extends Controller
             $form->submit($request->request->get($form->getName()));
 
             if ($form->isValid()) {
-                $successInsert = $this->get('bibl.book.service.book')->saveBook($book);
-                if ($successInsert) {
+                try {
+                    $this->get('bibl.book.service.book')->saveBook($book);
                     $this->addFlash('notice', 'Book was successfully saved!');
-                } else {
+                } catch (\PDOException $e) {
                     $this->addFlash('notice', 'The server encountered a problem.');
                 }
 
@@ -78,16 +85,21 @@ class BookController extends Controller
     public function editBookByIdAction(Request $request)
     {
         $book = $this->get('bibl.book.service.book')->getBookById($request->get('id'));
+
+        if (null === $book) {
+            return $this->redirectToRoute("bibl.book.book.add");
+        }
+
         $form = $this->createForm(new BookTask(), $book);
 
         if ($request->isMethod('POST')) {
             $form->submit($request->request->get($form->getName()));
 
             if ($form->isValid()) {
-                $successUpdate = $this->get("bibl.book.service.book")->saveBook($book);
-                if ($successUpdate) {
+                try {
+                    $this->get("bibl.book.service.book")->saveBook($book);
                     $this->addFlash('notice', "The book was successfully updated! ");
-                } else {
+                } catch (\PDOException $e) {
                     $this->addFlash('notice', "The server encountered a problem.");
                 }
             }
@@ -108,10 +120,45 @@ class BookController extends Controller
      */
     public function viewBookByIdAction(Request $request)
     {
-        $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
+        try {
+            $currentBook = $this->get("bibl.book.service.book")->getBookById($request->get('id'));
+        } catch (\ORMException $e) {
+        }
+
+        if (null === $currentBook) {
+            return $this->redirectToRoute("bibl.book.book.add");
+        }
 
         return $this->render('@Book/Book/view-book.html.twig', [
             'book' => $currentBook
+        ]);
+    }
+
+    /**
+     *
+     * @Route("/search_by_isbn", name = "bibl.book.book.list_search_by_isbn")
+     * @return Response
+     */
+    public function searchBookByIsbn()
+    {
+        return $this->render('BookBundle:Book:search-by-isbn.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Route("/render_books", name="bibl.book.book.ajax_render_books", options={"expose"=true})
+     * @Method({"POST"})
+     *
+     * @return Response
+     */
+    public function renderBooksAfterSubmit(Request $request)
+    {
+        $isbn  = $request->get('isbn');
+        $books = $this->get('bibl.book.api.book')->getBooksByIsbn($isbn);
+
+        return $this->render('@Book/Book/_ajax-all-books-by-isbn.html.twig', [
+            'books' => $books
         ]);
     }
 

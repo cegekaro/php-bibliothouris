@@ -1,7 +1,8 @@
 services:
     bibl.book.service.abstract:
         class: BookBundle\Service\AbstractService
-        arguments: [@doctrine.orm.entity_manager]
+        arguments:
+        - @doctrine.orm.entity_manager
 
     bibl.book.service.book:
         class: BookBundle\Service\BookService

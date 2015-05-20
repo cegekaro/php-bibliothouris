@@ -1,0 +1,19 @@
+<thead>
+    <th> ISBN</th>
+    <th> Title</th>
+    <th> Author first name</th>
+    <th> Author last name</th>
+</thead>
+
+<tbody>
+    {% for book in books %}
+        {% include('@Book/Book/_book-row.html.twig') with {
+        "isbn": book.isbn,
+        "title": book.title,
+        "firstName": book.authorFirstName,
+        "lastName": book.authorLastName,
+        "id": book.id
+        } %}
+    {% endfor %}
+</tbody>
+

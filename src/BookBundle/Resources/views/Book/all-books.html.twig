@@ -28,8 +28,6 @@
 
     {% set lastPage = (numberOfBooks//5) %}
 
-    {# {% include '@Book/Book/_hideOrShowSignsForNextAndPrev.html.twig' %} #}
-
     {# Hide the "<<" sign when we are on the first page #}
     {% if app.request.get('page') == 1 %}
         {% set displayPrev = "hideItem" %}

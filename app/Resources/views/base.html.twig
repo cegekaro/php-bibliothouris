@@ -25,6 +25,7 @@
                         <ul class="sidebar-links">
                             <li><a href="{{ path('bibl.book.book.add') }}">New book</a></li>
                             <li><a href="{{ path('bibl.book.book.all', {"page": 1}) }}">Show all books</a></li>
+                            <li><a href="{{ path('bibl.book.book.list_search_by_isbn') }}"> Search by ISBN </a></li>
                         </ul>
                     </div>
                 {% endblock %}
@@ -34,13 +35,16 @@
                     {% endblock %}
                 </div>
             </div>
-        </div>
+        </div>l
     </div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 {% endblock %}
 </body>
 </html>

@@ -1,0 +1,18 @@
+{% extends('::base.html.twig') %}
+
+{% block content %}
+    <div class="wrap-search">
+        <label for="searchButton"> Search by Isbn: </label>
+        <input type="text" id="searchButton" name="searchByIsbn"/>
+        <input type="button" id="submitButton" value="List books"/>
+
+    </div>
+
+    <table class="table table-bordered table-responsive content-table all-books"> </table>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/autocomplete.js') }}"></script>
+{% endblock %}

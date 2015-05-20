@@ -3,7 +3,6 @@
 
 namespace BookBundle\Repository;
 
-
 use Doctrine\ORM\PersistentCollection;
 
 class BookRepository extends AbstractEntityRepository
@@ -40,25 +39,43 @@ class BookRepository extends AbstractEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    /**
+     * @param $book
+     */
     public function saveBook($book)
     {
-        try {
-            $entityManager = $this->getEntityManager();
-            $entityManager->persist($book);
-            $entityManager->flush();
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return true;
-
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($book);
+        $entityManager->flush();
     }
 
+    /**
+     * @param $id
+     *
+     * @return \BookBundle\Entity\Book
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
     public function getBookById($id)
     {
         $book = $this->getEntityManager()->find('BookBundle:Book', $id);
 
         return $book;
 
+    }
+
+    /**
+     * @param $isbn
+     *
+     * @return array
+     */
+    public function getBooksByIsbn($isbn)
+    {
+        $books = $this->createQueryBuilder("b")
+            ->where("b.isbn LIKE :isbn")
+            ->setParameter(":isbn", "%{$isbn}%")->getQuery()->getArrayResult();
+
+        return $books;
     }
 }
