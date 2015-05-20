@@ -31,7 +31,7 @@
 .content-wrapper {
     background-color: #c9c9c9;
     border: 1px solid #333;
-    height:800px;
+    height: 800px;
 }
 
 .content-table {
@@ -52,10 +52,10 @@
 }
 
 .header-links li {
-    display:inline;
+    display: inline;
     background-color: blue;
-    padding:5px;
-    border-radius:5px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .header-links li a, .header-links li a:hover {
@@ -64,15 +64,15 @@
 }
 
 .wrap-header-links {
-    padding:30px;
+    padding: 30px;
 }
 
-.wrap-properties  {
-    margin:5px;
+.wrap-properties {
+    margin: 5px;
 }
 
 .wrap-search {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 ul.ui-autocomplete {
@@ -92,3 +92,21 @@ ul.ui-autocomplete li:hover {
 .all-books {
     margin-top: 10px;
 }
+
+.show-advanced-filtering:hover {
+    cursor: pointer;
+}
+
+.hidden-area {
+    display: none;
+}
+
+#filtering-form label {
+    width: 80px;
+    margin: 5px;
+}
+
+.submit-filter-books {
+    margin:10px 0px;
+}
+

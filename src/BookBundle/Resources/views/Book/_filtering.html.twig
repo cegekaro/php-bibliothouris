@@ -1,0 +1,28 @@
+<div class="filtering-area hidden-area">
+
+    <form id="filtering-form">
+        <label for=""> Filter by: </label>
+        <input type="radio" name="field" value = "isbn" checked> Isbn
+        <input type="radio" name="field" value = "title"> Title
+        <input type="radio" name="field" value = "authorFirstName"> Author first name
+        <input type="radio" name="field" value = "authorLastName"> Author last name
+
+        <div>
+            <label for="inputValueToFilter"> Search by: </label>
+            <input type="text" name="field_value" id="inputValueToFilter"/>
+        </div>
+
+        <div>
+            <label for="selectOrder"> Order: </label>
+            <select id="selectOrder" name="order">
+                <option value="ASC"> Ascending </option>
+                <option value="DESC"> Descending </option>
+            </select>
+        </div>
+
+        <div>
+            <input type="button" class="submit-filter-books" value="Filter books"/>
+        </div>
+    </form>
+
+</div>
