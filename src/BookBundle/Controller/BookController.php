@@ -53,6 +53,7 @@ class BookController extends Controller
     public function addBook(Request $request)
     {
         $book = new Book();
+        //$categories = $this->get('bibl.book.service.category')->getAllCategories();
         $form = $this->createForm(new BookTask(), $book);
 
         if ($request->isMethod('POST')) {

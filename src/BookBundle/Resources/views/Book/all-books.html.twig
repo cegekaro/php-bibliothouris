@@ -5,7 +5,7 @@
 
     <p class="show-advanced-filtering"> Show advanced filtering </p>
 
-    {%  include '@Book/Book/_filtering.html.twig' %}
+    {% include '@Book/Book/_filtering.html.twig' %}
 
     <table class="table table-bordered table-responsive content-table">
         <thead>
@@ -18,15 +18,15 @@
         </thead>
 
         <tbody>
-            {% for book in books %}
-                {% include '@Book/Book/_book-row.html.twig' with {
-                "isbn": book.isbn,
-                "title": book.title,
-                "firstName": book.authorFirstName,
-                "lastName": book.authorLastName,
-                "id": book.id
-                } %}
-            {% endfor %}
+        {% for book in books %}
+            {% include '@Book/Book/_book-row.html.twig' with {
+            "isbn": book.isbn,
+            "title": book.title,
+            "firstName": book.authorFirstName,
+            "lastName": book.authorLastName,
+            "id": book.id,
+            } %}
+        {% endfor %}
         </tbody>
     </table>
 
@@ -59,7 +59,7 @@
 
 {% endblock %}
 
-{%  block javascripts %}
-    {{  parent() }}
+{% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('assets/js/bindEvents.js') }}"></script>
-{%  endblock %}
+{% endblock %}

@@ -7,6 +7,8 @@ namespace BookBundle\Tests\Integration\Service;
 use BookBundle\Entity\Book;
 use BookBundle\Service\BookService;
 use BookBundle\Tests\Integration\AbstractIntegrationTest;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Date;
 
 class BookServiceTest extends AbstractIntegrationTest
 {
@@ -50,6 +52,10 @@ class BookServiceTest extends AbstractIntegrationTest
         $book->setAuthorFirstName("Mihail");
         $book->setAuthorLastName("Drumes");
         $book->setTitle("Invitatie la vals");
+        $book->setPages(200);
+        $book->setPublicationDate(new \DateTime());
+        $book->setCategories(new ArrayCollection([1]));
+        $book->setPublisher("Test");
         $this->bookService->saveBook($book);
 
         $this->assertNotNull($book->getId(), "The book's id is null");
@@ -88,6 +94,10 @@ class BookServiceTest extends AbstractIntegrationTest
         $book->setAuthorFirstName("Agatha");
         $book->setAuthorLastName("Christie");
         $book->setTitle("Cat among the pigeons");
+        $book->setPages(200);
+        $book->setCategories(new ArrayCollection([1]));
+        $book->setPublicationDate(new \DateTime());
+        $book->setPublisher("Test");
         $this->bookService->saveBook($book);
 
         $this->assertEquals(null, $book->getId());

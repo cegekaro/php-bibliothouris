@@ -36,5 +36,4 @@ class BookService extends AbstractService
         return $this->getObjectManager()->getRepository('BookBundle:Book')->filterBookByFields($field, $value, $order);
     }
 
-
 }

@@ -5,6 +5,7 @@ namespace BookBundle\Tests\Functional\Controller;
 
 
 use BookBundle\Tests\Functional\AbstractFunctionalTest;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class BookControllerTest extends AbstractFunctionalTest
 {
@@ -28,10 +29,14 @@ class BookControllerTest extends AbstractFunctionalTest
 
         $form = $crawler->selectButton('Save')->form();
         $form->setValues(array(
-            'book[isbn]'            => '0-201-53082-1',
-            'book[authorFirstName]' => "Ana",
-            'book[authorLastName]'  => "Ana",
-            'book[title]'           => "Ana are mere 222",
+            'book[isbn]'             => '0-201-53082-1',
+            'book[authorFirstName]'  => "Test",
+            'book[authorLastName]'   => "Test",
+            'book[title]'            => "Test",
+            'book[categories]'       => new ArrayCollection([1]),
+            'book[pages]'            => 200,
+            'book[publication_date]' => new \DateTime(),
+            'book[publisher]'        => 'Test'
         ));
 
         $newCrawler = $this->getClient()->submit($form);
@@ -68,7 +73,8 @@ class BookControllerTest extends AbstractFunctionalTest
         $this->assertSuccessfulResponse('Could not access the render books method');
     }
 
-    public function testFilterBooks() {
+    public function testFilterBooks()
+    {
 
         $this->getClient()->request('POST', '/book/show_filtered_books', [
             "field" => "isbn",
@@ -80,16 +86,14 @@ class BookControllerTest extends AbstractFunctionalTest
 
     }
 
-    public function testFilterBooksAdvanced() {
+    public function testFilterBooksAdvanced()
+    {
 
         $this->getClient()->request('POST', '/book/show_filtered_books', [
             "field" => "isbn",
-            "value" => "000.000.00' ; drop table test;",
+            "value" => "000.000.00' ; drop table book;",
             "order" => "ASC"
         ]);
-
-        $this->markTestIncomplete();
-        //$this->assertTrue($this->getClient()->getResponse()->isServerError(), 'Sql Injection worked');
 
     }
 
