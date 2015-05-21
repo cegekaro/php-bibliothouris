@@ -191,7 +191,7 @@ class BookController extends Controller
         $value = $request->get('field_value');
         $order = $request->get('order');
 
-        $books = $this->get('bibl.book.service.book')->getfilterBookByFields($field, $value, $order);
+        $books = $this->get('bibl.book.service.book')->getFilterBookByFields($field, $value, $order);
 
         return $this->render("@Book/Book/_ajax-all-books-by-isbn.html.twig", [
             "books" => $books

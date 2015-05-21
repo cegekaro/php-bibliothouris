@@ -90,6 +90,7 @@ class BookServiceTest extends AbstractIntegrationTest
         $book->setTitle("Cat among the pigeons");
         $this->bookService->saveBook($book);
 
-        //$this->assertEquals(null, $book->getId());
+        $this->assertEquals(null, $book->getId());
     }
 }
+

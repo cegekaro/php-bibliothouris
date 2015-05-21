@@ -72,7 +72,7 @@ class BookControllerTest extends AbstractFunctionalTest
 
         $this->getClient()->request('POST', '/book/show_filtered_books', [
             "field" => "isbn",
-            "value" => "000.000.00",
+            "value" => "000-000",
             "order" => "ASC"
         ]);
 
@@ -84,11 +84,11 @@ class BookControllerTest extends AbstractFunctionalTest
 
         $this->getClient()->request('POST', '/book/show_filtered_books', [
             "field" => "isbn",
-            "value" => "000.000.00' ; drop table book_copy;",
+            "value" => "000.000.00' ; drop table test;",
             "order" => "ASC"
         ]);
 
-        //$this->markTestIncomplete();
+        $this->markTestIncomplete();
         //$this->assertTrue($this->getClient()->getResponse()->isServerError(), 'Sql Injection worked');
 
     }
