@@ -4,6 +4,7 @@
 namespace BookBundle\Tests\Functional\Controller;
 
 
+use BookBundle\Entity\Category;
 use BookBundle\Tests\Functional\AbstractFunctionalTest;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -28,16 +29,13 @@ class BookControllerTest extends AbstractFunctionalTest
         $this->assertSuccessfulResponse('Could not access the adding book page');
 
         $form = $crawler->selectButton('Save')->form();
-        $form->setValues(array(
-            'book[isbn]'             => '0-201-53082-1',
-            'book[authorFirstName]'  => "Test",
-            'book[authorLastName]'   => "Test",
-            'book[title]'            => "Test",
-            'book[categories]'       => new ArrayCollection([1]),
-            'book[pages]'            => 200,
-            'book[publication_date]' => new \DateTime(),
-            'book[publisher]'        => 'Test'
-        ));
+        $form['book[isbn]'] ='0-201-53082-1';
+        $form['book[authorFirstName]'] = 'Test';
+        $form['book[authorLastName]'] = 'Test';
+        $form['book[title]'] = 'Test';
+        $form['book[pages]'] = '200';
+        $form['book[publisher]'] = 'Test';
+        $form['book[categories]'][0]->tick();
 
         $newCrawler = $this->getClient()->submit($form);
         $this->assertTrue($newCrawler->filter('div:contains("successfully")')->count() > 0);

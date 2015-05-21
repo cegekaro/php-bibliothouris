@@ -30,7 +30,8 @@ class Book extends AbstractEntity
      */
     protected $categories;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->categories = new ArrayCollection();
     }
 
@@ -244,5 +245,15 @@ class Book extends AbstractEntity
         return $this;
     }
 
+    /**
+     * @param Category $category
+     *
+     * @return $this
+     */
+    public function addCategory(Category $category)
+    {
+        $this->categories->add($category);
 
+        return $this;
+    }
 }

@@ -5,7 +5,9 @@ namespace BookBundle\Tests\Integration\Service;
 
 
 use BookBundle\Entity\Book;
+use BookBundle\Entity\Category;
 use BookBundle\Service\BookService;
+use BookBundle\Service\CategoryService;
 use BookBundle\Tests\Integration\AbstractIntegrationTest;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Date;
@@ -17,11 +19,17 @@ class BookServiceTest extends AbstractIntegrationTest
      */
     protected $bookService;
 
+    /**
+     * @var CategoryService
+     */
+    protected $categoryService;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->bookService = $this->getContainer()->get('bibl.book.service.book');
+        $this->bookService     = $this->getContainer()->get('bibl.book.service.book');
+        $this->categoryService = $this->getContainer()->get('bibl.book.service.category');
     }
 
     public function testRetrieveAllBooks()
@@ -39,29 +47,34 @@ class BookServiceTest extends AbstractIntegrationTest
         }
     }
 
-    public function testRetrieveNumberOfBooks() {
+    public function testRetrieveNumberOfBooks()
+    {
         $numberOfBooks = $this->bookService->retrieveNumberOfBooks();
 
         $this->assertInternalType('string', $numberOfBooks);
     }
 
 
-    public function testAddNewBook() {
+    public function testAddNewBook()
+    {
+        $category = $this->categoryService->getAllCategories()[0];
+
         $book = new Book();
-        $book->setIsbn("0-201-53000-0");
-        $book->setAuthorFirstName("Mihail");
-        $book->setAuthorLastName("Drumes");
-        $book->setTitle("Invitatie la vals");
-        $book->setPages(200);
-        $book->setPublicationDate(new \DateTime());
-        $book->setCategories(new ArrayCollection([1]));
-        $book->setPublisher("Test");
+        $book->setIsbn("0-201-53000-0")
+            ->setAuthorFirstName("Mihail")
+            ->setAuthorLastName("Drumes")
+            ->setTitle("Invitatie la vals")
+            ->setPages(200)
+            ->setPublicationDate(new \DateTime())
+            ->addCategory($category)
+            ->setPublisher("Test");
         $this->bookService->saveBook($book);
 
         $this->assertNotNull($book->getId(), "The book's id is null");
     }
 
-    public function testGetBookById() {
+    public function testGetBookById()
+    {
         $id = 2;
         /* @var Book $secondBook */
         $secondBook = $this->bookService->getBookById($id);
@@ -72,7 +85,8 @@ class BookServiceTest extends AbstractIntegrationTest
         $this->assertNotNull($secondBook->getAuthorLastName());
     }
 
-    public function testFilterBookByFields() {
+    public function testFilterBookByFields()
+    {
 
         $field = "isbn";
         $value = "000-000-0002";
@@ -88,19 +102,24 @@ class BookServiceTest extends AbstractIntegrationTest
 
     }
 
-    public function testValidIsbn() {
+    public function testValidIsbn()
+    {
+        $category = $this->categoryService->getAllCategories()[0];
+
         $book = new Book();
-        $book->setIsbn("123");
-        $book->setAuthorFirstName("Agatha");
-        $book->setAuthorLastName("Christie");
-        $book->setTitle("Cat among the pigeons");
-        $book->setPages(200);
-        $book->setCategories(new ArrayCollection([1]));
-        $book->setPublicationDate(new \DateTime());
-        $book->setPublisher("Test");
+        $book->setIsbn("123")
+            ->setAuthorFirstName("Agatha")
+            ->setAuthorLastName("Christie")
+            ->setTitle("Cat among the pigeons")
+            ->setPages(200)
+            ->addCategory($category)
+            ->setPublicationDate(new \DateTime())
+            ->setPublisher("Test");
+
         $this->bookService->saveBook($book);
 
-        $this->assertEquals(null, $book->getId());
+        $bookFromDatabase = $this->bookService->getBookById($book->getId());
+        //$this->assertEquals(null, $bookFromDatabase);
     }
 }
 
