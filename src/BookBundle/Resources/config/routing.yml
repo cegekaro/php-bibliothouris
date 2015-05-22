@@ -2,3 +2,9 @@ bibl.book.book:
     resource: @BookBundle/Controller/BookController.php
     prefix: /book/
     type: annotation
+
+
+bibl.book.member:
+    resource: @BookBundle/Controller/MemberController.php
+    prefix: /member/
+    type: annotation

@@ -19,7 +19,7 @@ class BookControllerTest extends AbstractFunctionalTest
         $nextPage = $crawler->selectLink('>>')->link();
 
         $this->getClient()->click($nextPage);
-        $this->assertSuccessfulResponse();
+        $this->assertSuccessfulResponse('Could not access the second page');
     }
 
     public function testAddNewBook()
@@ -84,17 +84,6 @@ class BookControllerTest extends AbstractFunctionalTest
 
     }
 
-    public function testFilterBooksAdvanced()
-    {
-
-        $this->getClient()->request('POST', '/book/show_filtered_books', [
-            "field" => "isbn",
-            "value" => "000.000.00' ; drop table book;",
-            "order" => "ASC"
-        ]);
-
-    }
-
     public function testValidIsbn()
     {
         $client  = $this->getClient();
@@ -111,10 +100,27 @@ class BookControllerTest extends AbstractFunctionalTest
         $form['book[categories]'][0]->tick();
 
         $newCrawler = $this->getClient()->submit($form);
-        $this->assertTrue($newCrawler->filter('div:contains("successfully")')->count() == 0);
+        $this->assertTrue($newCrawler->filter('div:contains("successfully")')->count() == 0, "The validation of the isbn is not working");
 
     }
 
+    public function testAddNewMember() {
+        $crawler = $this->getClient()->request('GET','/member/add');
+        $form = $crawler->selectButton('Save')->form();
+        $form['member[national_number]'] = '123242';
+        $form['member[first_name]'] = 'Test 1';
+        $form['member[last_name]'] = 'Test 2';
+        $form['member[street]'] = 'Test 3';
+        $form['member[city]'] = 'Test 4';
 
+        $this->assertSuccessfulResponse('Could not access the adding member page');
+        $newCrawler = $this->getClient()->submit($form);
+        $this->assertTrue($newCrawler->filter('div:contains("successfully")')->count() > 0);
+    }
+
+    public function testGetAllMembers() {
+        $this->getClient()->request('GET', '/member/all');
+        $this->assertSuccessfulResponse('Could not access the page of all members');
+    }
 
 }

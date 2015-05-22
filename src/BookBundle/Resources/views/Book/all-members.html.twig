@@ -1,0 +1,33 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <h2>List of all members</h2>
+
+    <table class="table table-bordered table-responsive content-table">
+        <thead>
+        <tr>
+            <th>National number</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Postal code</th>
+            <th>Email</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+        {% for member in members %}
+            {% include 'BookBundle:Book:_member-row.html.twig' with {
+            "national_number": member.nationalNumber,
+            "postal_code": member.postalCode,
+            "first_name": member.firstName,
+            "last_name": member.lastName,
+            "city": member.city,
+            "email": member.email
+            } %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

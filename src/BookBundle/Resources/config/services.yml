@@ -11,3 +11,7 @@ services:
     bibl.book.service.category:
         class: BookBundle\Service\CategoryService
         parent: bibl.book.service.abstract
+
+    bibl.book.service.member:
+        class: BookBundle\Service\MemberService
+        parent: bibl.book.service.abstract

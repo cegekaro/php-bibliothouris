@@ -1,0 +1,67 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-notice">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="wrap-properties">
+        {{ form_label(form.national_number, 'National number', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.national_number) }}
+        {{ form_widget(form.national_number) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.first_name, 'First name: ', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.first_name) }}
+        {{ form_widget(form.first_name) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.last_name, 'Last Name: ', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.last_name) }}
+        {{ form_widget(form.last_name) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.birth_date, 'Date of birth:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.birth_date) }}
+        {{ form_widget(form.birth_date) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.city, 'City:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.city) }}
+        {{ form_widget(form.city) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.street, 'Street:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.street) }}
+        {{ form_widget(form.street) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.postal_code, 'Postal code:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.postal_code) }}
+        {{ form_widget(form.postal_code) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.email, 'Email:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email) }}
+    </div>
+
+    <div class="wrap-properties">
+        {{ form_label(form.phone, 'Phone:', { 'label_attr': {'class': 'col-md-4'} }) }}
+        {{ form_errors(form.phone) }}
+        {{ form_widget(form.phone) }}
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

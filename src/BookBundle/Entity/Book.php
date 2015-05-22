@@ -72,11 +72,11 @@ class Book extends AbstractEntity
     protected $pages;
 
     /**
-     * @var datetime
+     * @var \DateTime
      *
      * @ORM\Column(name="publication_date", type="datetime")
      */
-    protected $publication_date;
+    protected $publicationDate;
 
     /**
      * @var string
@@ -110,17 +110,17 @@ class Book extends AbstractEntity
      */
     public function getPublicationDate()
     {
-        return $this->publication_date;
+        return $this->publicationDate;
     }
 
     /**
-     * @param \DateTime $publication_date
+     * @param \DateTime $publicationDate
      *
      * @return $this
      */
-    public function setPublicationDate($publication_date)
+    public function setPublicationDate($publicationDate)
     {
-        $this->publication_date = $publication_date;
+        $this->publicationDate = $publicationDate;
 
         return $this;
     }
