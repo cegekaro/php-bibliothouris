@@ -53,6 +53,7 @@ class BookController extends Controller
     public function addBook(Request $request)
     {
         $book = new Book();
+        //$categories = $this->get('bibl.book.service.category')->getAllCategories();
         $form = $this->createForm(new BookTask(), $book);
 
         if ($request->isMethod('POST')) {
@@ -173,7 +174,29 @@ class BookController extends Controller
      * @Route("/search_by_title", name = "bibl.book.book.list_search_by_title")
      * @return Response
      */
-    public function searchBookByTitle() {
+    public function searchBookByTitle()
+    {
         return $this->render('@Book/Book/search_by_title.html.twig');
     }
+
+    /**
+     * @Route("/show_filtered_books", name = "bibl.book.book.ajax_render_filtered_books", options={"expose"=true})
+     * @Method({"POST"})
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function renderFilteringBooks(Request $request)
+    {
+        $field = $request->get('field');
+        $value = $request->get('field_value');
+        $order = $request->get('order');
+
+        $books = $this->get('bibl.book.service.book')->getFilterBookByFields($field, $value, $order);
+
+        return $this->render("@Book/Book/_ajax-all-books-by-isbn.html.twig", [
+            "books" => $books
+        ]);
+    }
+
 }

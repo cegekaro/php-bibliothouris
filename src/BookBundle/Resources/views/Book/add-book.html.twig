@@ -15,30 +15,54 @@
     {% endif %}
 
     {{ form_start(form) }}
-    {{ form_errors(form) }}
-    <div class="wrap-properties">
-        {{ form_label(form.title, 'Title', { 'label_attr': {'class': 'col-md-3'} }) }}
-        {{ form_errors(form.title) }}
-        {{ form_widget(form.title) }}
-    </div>
+        {{ form_errors(form) }}
+        <div class="wrap-properties">
+            {{ form_label(form.title, 'Title', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
 
-    <div class="wrap-properties">
-        {{ form_label(form.authorFirstName, 'First name: ', { 'label_attr': {'class': 'col-md-3'} }) }}
-        {{ form_errors(form.authorFirstName) }}
-        {{ form_widget(form.authorFirstName) }}
-    </div>
+        <div class="wrap-properties">
+            {{ form_label(form.authorFirstName, 'First name: ', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.authorFirstName) }}
+            {{ form_widget(form.authorFirstName) }}
+        </div>
 
-    <div class="wrap-properties">
-        {{ form_label(form.authorLastName, 'Last Name: ', { 'label_attr': {'class': 'col-md-3'} }) }}
-        {{ form_errors(form.authorLastName) }}
-        {{ form_widget(form.authorLastName) }}
-    </div>
+        <div class="wrap-properties">
+            {{ form_label(form.authorLastName, 'Last Name: ', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.authorLastName) }}
+            {{ form_widget(form.authorLastName) }}
+        </div>
 
-    <div class="wrap-properties">
-        {{ form_label(form.isbn, 'Isbn:', { 'label_attr': {'class': 'col-md-3'} }) }}
-        {{ form_errors(form.isbn) }}
-        {{ form_widget(form.isbn) }}
-    </div>
+        <div class="wrap-properties">
+            {{ form_label(form.isbn, 'Isbn:', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.isbn) }}
+            {{ form_widget(form.isbn) }}
+        </div>
+
+        <div class="wrap-properties">
+            {{ form_label(form.pages, 'Number of pages:', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.pages) }}
+            {{ form_widget(form.pages) }}
+        </div>
+
+        <div class="wrap-properties">
+            {{ form_label(form.publisher, 'Publisher name:', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.publisher) }}
+            {{ form_widget(form.publisher) }}
+        </div>
+
+        <div class="wrap-properties">
+            {{ form_label(form.publication_date, 'Publish date:', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.publication_date) }}
+            {{ form_widget(form.publication_date) }}
+        </div>
+
+        <div class="wrap-properties">
+            {{ form_label(form.categories, 'Categories:', { 'label_attr': {'class': 'col-md-4'} }) }}
+            {{ form_errors(form.categories) }}
+            {{ form_widget(form.categories) }}
+        </div>
     {{ form_end(form) }}
 
 {% endblock %}

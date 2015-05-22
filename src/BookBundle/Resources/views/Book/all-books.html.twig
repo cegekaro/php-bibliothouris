@@ -3,6 +3,10 @@
 {% block content %}
     <h2>List of all books</h2>
 
+    <p class="show-advanced-filtering"> Show advanced filtering </p>
+
+    {% include '@Book/Book/_filtering.html.twig' %}
+
     <table class="table table-bordered table-responsive content-table">
         <thead>
         <tr>
@@ -14,15 +18,15 @@
         </thead>
 
         <tbody>
-            {% for book in books %}
-                {% include '@Book/Book/_book-row.html.twig' with {
-                "isbn": book.isbn,
-                "title": book.title,
-                "firstName": book.authorFirstName,
-                "lastName": book.authorLastName,
-                "id": book.id
-                } %}
-            {% endfor %}
+        {% for book in books %}
+            {% include '@Book/Book/_book-row.html.twig' with {
+            "isbn": book.isbn,
+            "title": book.title,
+            "firstName": book.authorFirstName,
+            "lastName": book.authorLastName,
+            "id": book.id,
+            } %}
+        {% endfor %}
         </tbody>
     </table>
 
@@ -45,10 +49,17 @@
 
     {% set nextPage, currentPage, prevPage = app.request.get('page') + 1, app.request.get('page'), app.request.get('page') - 1 %}
 
-    <a id="prev-page" href="{{ path('bibl.book.book.all', {"page": prevPage}) }}" class="{{ displayPrev }}"> << </a>
-    <span>
-        Page {{ currentPage }}
-    </span>
-    <a id="next-page" href="{{ path('bibl.book.book.all', {"page": nextPage}) }}" class="{{ displayNext }}"> >> </a>
+    <div class="pagination">
+        <a id="prev-page" href="{{ path('bibl.book.book.all', {"page": prevPage}) }}" class="{{ displayPrev }}"> << </a>
+        <span>
+            Page {{ currentPage }}
+        </span>
+        <a id="next-page" href="{{ path('bibl.book.book.all', {"page": nextPage}) }}" class="{{ displayNext }}"> >> </a>
+    </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/bindEvents.js') }}"></script>
 {% endblock %}

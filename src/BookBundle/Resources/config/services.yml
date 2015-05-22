@@ -7,3 +7,7 @@ services:
     bibl.book.service.book:
         class: BookBundle\Service\BookService
         parent: bibl.book.service.abstract
+
+    bibl.book.service.category:
+        class: BookBundle\Service\CategoryService
+        parent: bibl.book.service.abstract

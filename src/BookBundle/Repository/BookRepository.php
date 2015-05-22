@@ -3,10 +3,13 @@
 
 namespace BookBundle\Repository;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\PersistentCollection;
 
 class BookRepository extends AbstractEntityRepository
 {
+
+
     /**
      * @param $limit
      * @param $offset
@@ -74,10 +77,25 @@ class BookRepository extends AbstractEntityRepository
     public function getBooksByInfo($field, $info)
     {
         $condition = "b.{$field} LIKE :{$field}";
-        $books = $this->createQueryBuilder("b")
+        $books     = $this->createQueryBuilder("b")
             ->where($condition)
             ->setParameter(":{$field}", "%{$info}%")->getQuery()->getArrayResult();
 
         return $books;
+    }
+
+    public function filterBookByFields($field, $value, $order)
+    {
+        $condition = "b.{$field} LIKE :{$field}";
+
+        $books = $this->createQueryBuilder("b")
+            ->where($condition)
+            ->orderBy("b.{$field}", $order)
+            ->setParameter(":{$field}", "%{$value}%")
+            ->getQuery()
+            ->getArrayResult();
+
+        return $books;
+
     }
 }
