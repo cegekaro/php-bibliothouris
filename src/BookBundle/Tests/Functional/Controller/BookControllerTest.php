@@ -95,5 +95,26 @@ class BookControllerTest extends AbstractFunctionalTest
 
     }
 
+    public function testValidIsbn()
+    {
+        $client  = $this->getClient();
+        $crawler = $client->request('GET', '/book/add/');
+        $this->assertSuccessfulResponse('Could not access the adding book page');
+
+        $form = $crawler->selectButton('Save')->form();
+        $form['book[isbn]'] ='111';
+        $form['book[authorFirstName]'] = 'Test';
+        $form['book[authorLastName]'] = 'Test';
+        $form['book[title]'] = 'Test';
+        $form['book[pages]'] = '200';
+        $form['book[publisher]'] = 'Test';
+        $form['book[categories]'][0]->tick();
+
+        $newCrawler = $this->getClient()->submit($form);
+        $this->assertTrue($newCrawler->filter('div:contains("successfully")')->count() == 0);
+
+    }
+
+
 
 }

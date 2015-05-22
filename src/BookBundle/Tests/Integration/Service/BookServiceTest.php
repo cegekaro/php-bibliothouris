@@ -102,24 +102,5 @@ class BookServiceTest extends AbstractIntegrationTest
 
     }
 
-    public function testValidIsbn()
-    {
-        $category = $this->categoryService->getAllCategories()[0];
-
-        $book = new Book();
-        $book->setIsbn("123")
-            ->setAuthorFirstName("Agatha")
-            ->setAuthorLastName("Christie")
-            ->setTitle("Cat among the pigeons")
-            ->setPages(200)
-            ->addCategory($category)
-            ->setPublicationDate(new \DateTime())
-            ->setPublisher("Test");
-
-        $this->bookService->saveBook($book);
-
-        $bookFromDatabase = $this->bookService->getBookById($book->getId());
-        //$this->assertEquals(null, $bookFromDatabase);
-    }
 }
 

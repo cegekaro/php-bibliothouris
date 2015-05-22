@@ -86,12 +86,14 @@ class BookRepository extends AbstractEntityRepository
 
     public function filterBookByFields($field, $value, $order)
     {
-        $dql = "SELECT b from BookBundle\Entity\Book b WHERE b.{$field} LIKE :value
-                ORDER BY b.{$field} " . $order;
+        $condition = "b.{$field} LIKE :{$field}";
 
-        $query = $this->getEntityManager()->createQuery($dql);
-        $query->setParameter("value", '%' . $value . '%');
-        $books = $query->getArrayResult();
+        $books = $this->createQueryBuilder("b")
+            ->where($condition)
+            ->orderBy("b.{$field}", $order)
+            ->setParameter(":{$field}", "%{$value}%")
+            ->getQuery()
+            ->getArrayResult();
 
         return $books;
 
